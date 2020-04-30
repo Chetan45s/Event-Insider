@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+Home    
+{% endblock title %}
+{% block content %}       
+        {% for i in post %}
+            <h5><img class = "rounded-circle account-img" src="{{ i.author.image.url }}">{{ i.author }}</h5>
+            <img class="img-thumbnail" src="{{ i.image.url }}" alt="Card image cap">
+            <div class="card-body">
+                <div class="article-metadata">
+                    <h2><a class="mr-2" href="{% url 'post-detail' i.id %}">{{ i.title }}</a></h2>
+                    <small class="text-muted">{{ i.date_posted|date:"F d, Y" }}</small>
+                    <p class="article-content">{{ i.description }}</p>                       
+                </div>
+            </div>    
+        {% endfor %}
+
+
+{% endblock content %}

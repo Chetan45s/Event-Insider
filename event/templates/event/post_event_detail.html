@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}  
+    <h5><img class = "rounded-circle account-img" src="{{ post.author.image.url }}">{{ post.author }}</h5>
+    <div class="media-body">
+      <img class="img-thumbnail" src="{{ post.image.url }}" alt="Card image cap">
+        <div class="article-metadata">
+          <h2>{{ post.Title_of_the_Event }}</a></h2>
+                <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                <p class="article-content">{{ post.description }}</p>
+{% if request.user.is_authenticated %}
+          {{ total_registrations }} Registration{{ total_registrations|pluralize }} Uptill Now <br>
+          Total Number of seats avaliables are 10
+          <br>
+          <br>
+          <form action="{% url 'event_registration' %}" method = "POST">
+           {% csrf_token %}
+           {% if is_registered %}
+                  <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-success">Registered</button>
+            {% else %}
+                  <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-text-danger">Register</button>
+            {% endif %}
+          </form>
+            
+          {% if post.author.president == user %}
+            <div>
+              <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
+              <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
+            </div>
+          {% endif %}
+          <hr>
+          <br><br>
+          <i class="fas fa-h2 ">Comments</i>
+                <form  method="POST" enctype = "multipart/form-data">
+                  {% csrf_token %}
+                  {{ comment_form|crispy }}
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form> 
+
+          {{ comments.count }} Comment{{ comments|pluralize }}
+
+        {% for j in comments  %}
+              <blockquote class="blockquote">
+                <p class="mb-0">{{ j.comment }}</p>
+                  <footer class="blockquote-footer">by <cite title="Source title">{{ j.user|capfirst }}</cite>
+                          <button type="button" name="button" class="reply-btn btn btn-outline-dark btn-sm"> Reply</button>
+                  </footer>
+              </blockquote>
+                <div class="replied-comments container mt-2" style="display:none;">
+                  {% for reply in j.replies.all %}
+                    <blockquote class="blockquote">
+                      <p class="mb-0">{{ reply.comment }}</p>
+                        <footer class="blockquote-footer">by <cite title="Source title">{{ reply.user|capfirst }}</cite>
+                        </footer>
+                    </blockquote>
+                  {% endfor %}
+                  <div class ="form-group row">
+                    <form  method="POST" enctype = "multipart/form-data">
+                      {% csrf_token %}
+                      <input type="hidden" name="comment_id" value ="{{ j.id }}">
+                      {{ comment_form|crispy }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form> 
+             </div>
+          </div>
+        {% endfor %}  
+{% endif %}
+        </div>
+    </div>
+{% endblock content %}
