@@ -11,61 +11,72 @@
         <script src="/static/vender/popper.min.js"></script>
         <script src="/static/vender/bs/js/bootstrap.min.js"></script>
         <link href="/static/vender/fa/css/font-awesome.min.css" rel="stylesheet" />
+          <!-- Favicons -->
+        <link href="assets/img/favicon.png" rel="icon">
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+        <!-- Vendor CSS Files -->
+        <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+
+        <!-- Template Main CSS File -->
+        <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
         <link href="/static/style.css" rel = "stylesheet"/>
         
     </head>
     <body>
-        <nav class="navbar navbar-expand-md navbar-light warning-color bg-white">
-            <a class="navbar-brand" href="#">Event Insider</a>
-            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/contact">Contact Us<span class="sr-only">(current)</span></a>
-                    </li>
-                    
-                    {% if user.is_authenticated %}
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'post-list' %}">Events</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">{{ request.user|capfirst }}</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
-                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>                               
-                            </div>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
-    <div class = "row">
-        <div class = "col-md-3">
+
+    <!-- ======= Top Bar ======= -->
+    <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top ">
+        <div class="container d-flex">
+        <div class="contact-info mr-auto">
+            <i class="icofont-envelope"></i> <a href="mailto:app.info.45@gmail.com">app.info.45@gmail.com</a>
         </div>
-        <div class = "col-md-5"> 
-            {% block content %}
-            {% endblock content %}
-        </div> 
-        <div class = "col-md-4">
         </div>
     </div>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top ">
+        <div class="container d-flex align-items-center">
+
+        <h1 class="logo mr-auto"><a href="/home">Event Insider</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+            <li><a href="/home">Home</a></li>
+            {% if user.is_authenticated %}
+                <li class = "active"><a href="{% url 'post-list' %}">Events</a></li>
+                <li class="drop-down"><a href="">{{ request.user|capfirst }}</a>
+                <ul>
+                    <li><a href="{% url 'profile' %}">My Profile</a></li>
+                    <li><a href="/home">Logout</a></li>
+                </ul>
+                </li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>            
+            <li><a href="#about">About</a></li>
+            {% endif %}
+            <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav><!-- .nav-menu -->
+
+        </div>
+    </header><!-- End Header -->
+
+     
+            {% block content %}
+            {% endblock content %}
+        
     <script type="text/javascript">
       $(document).ready(function(event){
 
@@ -75,6 +86,79 @@
 
       });
     </script>
+    
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="footer-top">
+        <div class="container">
+            <div class="row">
+
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-info">
+                <h3>Event Insider</h3>
+                <p>
+                MIT Academy of Engineering, Pune <br> H-Wing Second Floor 202<br><br>
+                    <strong>Email:</strong> info@example.com<br>
+                </p>
+                <div class="social-links mt-3">
+                    <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                    <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                    <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6 footer-links">
+                <h4>Useful Links</h4>
+                <ul>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                </ul>
+            </div>
+
+
+            <div class="col-lg-4 col-md-6 footer-newsletter">
+                <h4>Our Newsletter</h4>
+                <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                <form action="" method="post">
+                <input type="email" name="email"><input type="submit" value="Subscribe">
+                </form>
+
+            </div>
+
+            </div>
+        </div>
+        </div>
+
+        <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong><span>Event Insider</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+        </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+    <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/venobox/venobox.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
     </body>
 
 </html>

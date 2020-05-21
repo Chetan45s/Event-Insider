@@ -25,7 +25,7 @@ SECRET_KEY = 'zuy^wn8iku=%=(n8--=+px5v58dmu%0v#dn-b*_*vfv1p4+yrf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['webiste.com']
 
 
 # Application definition

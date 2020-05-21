@@ -2,7 +2,12 @@
 {% block title %}
 Home    
 {% endblock title %}
-{% block content %}       
+{% block content %}  
+<div class = "row">
+        <div class = "col-md-3">
+        </div>
+        <div class = "col-md-5">
+        <br><br><br><br>     
         {% for i in post %}
             <h5><img class = "rounded-circle account-img" src="{{ i.author.image.url }}">{{ i.author }}</h5>
             <img class="img-thumbnail" src="{{ i.image.url }}" alt="Card image cap">
@@ -14,6 +19,9 @@ Home
                 </div>
             </div>    
         {% endfor %}
-
+</div> 
+        <div class = "col-md-4">
+        </div>
+    </div>
 
 {% endblock content %}
